@@ -3,31 +3,32 @@ import './Images.css';
 
 function Images() {
 
-    let userImageUrl = 'https://picsum.photos/350';
-    const [imageUrl, setImageUrl] = useState('');
+    const [imageUrls, setImageUrls] = useState(["https://picsum.photos/350","https://picsum.photos/350","https://picsum.photos/350","https://picsum.photos/350","https://picsum.photos/350","https://picsum.photos/350","https://picsum.photos/350","https://picsum.photos/350","https://picsum.photos/350","https://picsum.photos/350","https://picsum.photos/350","https://picsum.photos/350"]);
 
     useEffect(() => {
-        fetch(userImageUrl)
-            .then(response => response.url)
-            .then(url => setImageUrl(url))
-            .catch(error => console.error('Error fetching image:', error));
+        const fetchImages = async () => {
+            const urls = [];
+            for (let i = 0; i < 12; i++) {
+                try {
+                    const response = await fetch(`https://picsum.photos/350`);
+                    urls.push(response.url);
+                } catch (error) {
+                    console.error('Error fetching image:', error);
+                }
+            }
+            setImageUrls(urls);
+        };
+
+        fetchImages();
     }, []);
+
     return (
       <div id="Images">
-        <img src={imageUrl} alt="User" className='images'/>
-        <img src={imageUrl} alt="User" className='images'/>
-        <img src={imageUrl} alt="User" className='images'/>
-        <img src={imageUrl} alt="User" className='images'/>
-        <img src={imageUrl} alt="User" className='images'/>
-        <img src={imageUrl} alt="User" className='images'/>
-        <img src={imageUrl} alt="User" className='images'/>
-        <img src={imageUrl} alt="User" className='images'/>
-        <img src={imageUrl} alt="User" className='images'/>
-        <img src={imageUrl} alt="User" className='images'/>
-        <img src={imageUrl} alt="User" className='images'/>
-        <img src={imageUrl} alt="User" className='images'/>
+        {imageUrls.map((url, index) => (
+          <img src={url} alt={`Random ${index}`} key={index} className="images" />
+        ))}
       </div>
     );
-  }
-  
-  export default Images;
+}
+
+export default Images;

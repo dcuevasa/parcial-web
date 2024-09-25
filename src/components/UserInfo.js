@@ -5,8 +5,8 @@ function UserInfo() {
 
     let userImageUrl = 'https://picsum.photos/350';
     const [imageUrl, setImageUrl] = useState('');
-    const [user, setUser] = useState({username: ""});
-    const mockarooUrl = 'https://my.api.mockaroo.com/parcial.json?key=ee359f20';
+    const [user, setUser] = useState({username: "loading...", full_name: "loading...", short_description: "loading...", url: "loading...", posts_number: "loading...", followers_number: "loading...", followed_number: "loading..."});
+    const mockarooUrl = 'https://my.api.mockaroo.com/parcial.json?key=92422330';
 
     useEffect(() => {
         fetch(userImageUrl)
@@ -15,7 +15,7 @@ function UserInfo() {
             .catch(error => console.error('Error fetching image:', error));
         fetch(mockarooUrl)
             .then(response => response.json())
-            .then(data => setUser(data[0]))
+            .then(data => setUser(data))
             .catch(error => console.error('Error fetching user info:', error));
     }, []);
 
@@ -23,7 +23,9 @@ function UserInfo() {
         <div className="UserInfo">
             <div  id="UserInfo-div">
                 <div className="UserInfo-Image" id="UserInfoImage-div">
-                    <img src={imageUrl} alt="User" id="user-image" />
+                    <a  href="/usuario" >
+                        <img src={imageUrl} alt="User"id="user-image" />
+                    </a>
                 </div>
                 <div className="UserInfo-Text" id="UserInfo-Text">
                     <h1>{user.username}</h1>
