@@ -1,0 +1,5 @@
+#UserView {
+    background: linear-gradient(to right, blue, green);
+    height: 100vh;
+    display: flex;
+}
